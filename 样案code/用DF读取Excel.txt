@@ -1,0 +1,20 @@
+# -- coding: utf-8 --
+# password.py
+import numpy as np
+import scipy.stats as stats
+import scipy.optimize as opt
+import pandas as pd
+
+#用绝对路径读入周线数据
+Trd_Data = pd.read_excel("D:\Chan Program\SD510050.xlsx",parse_dates='Timestamp',sheetname='周线')
+Trd_Data = Trd_Data[['Timestamp','Trade Open','Trade High','Trade Low','Trade Close']]
+print(Trd_Data.shape )
+print(Trd_Data.index)
+print(Trd_Data.columns)
+Data1 = Trd_Data.sort_values(by = 'Timestamp',ascending =True )
+print(Trd_Data.loc[0,'Trade Open'])
+print ("Head of this DataFrame:")
+print(Trd_Data.head(1))
+print("Tail of the Data")
+print(Trd_Data.tail(3))
+print(Data1.tail(3))

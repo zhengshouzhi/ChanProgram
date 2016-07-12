@@ -1,0 +1,15 @@
+# coding = utf-8
+# password.py
+import numpy as np
+import pandas as pd
+from pandas import Series,DataFrame
+import tushare as ts
+
+df = ts.get_hist_data('510050')
+Trd_Data = df[['high','low']]
+Trd_Data = DataFrame(Trd_Data.sort_index(axis = 0,ascending=True))
+print(Trd_Data.loc['2015-11-20','low'])
+
+print(Trd_Data.index[1])
+
+print(Trd_Data.loc[Trd_Data.index[2],'low'])

@@ -1,0 +1,9 @@
+import datetime   
+ starttime = datetime.datetime.now()
+#long running
+
+    S_Trd_Data = Get_TrData_FromExc(FilePath='D:\Chan Program\SD510050.xlsx',ColIndex = 'date',Worksheet = '÷‹œﬂ')
+    print(S_Trd_Data.shape)
+
+    endtime = datetime.datetime.now()
+    print ((endtime - starttime).seconds)

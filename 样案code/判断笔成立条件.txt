@@ -1,0 +1,40 @@
+    if (curFX == 1):
+        disNextoppFX = NextoppFX(IniFX_Data, irows)
+        #距离是下一个反向分型距离+下一个反向分型的反向分型距离+2，故而这里命名为part3
+        disNNextIdenFXpart3 = NextoppFX(IniFX_Data, irows + disNextoppFX + 1 )
+        disNNextIdenFX = disNextoppFX + disNNextIdenFXpart3 + 1
+        if (disNextoppFX == -1) or (disNNextIdenFXpart3 == -1):
+            IsFenXing = -1
+        elif (disNextoppFX >= 3) and (disNNextIdenFXpart3>=3):
+            curFXHigh = FXHigh(IniFX_Data,irows)
+            nxtoppFXHigh = FXHigh(IniFX_Data,irows + disNextoppFX + 1)
+            if (curFXHigh > nxtoppFXHigh):
+                IsFenXing = 1
+        elif(disNextoppFX >= 3) and (disNNextIdenFXpart3 <3):
+            curFXHigh = FXHigh(IniFX_Data,irows)
+            nxtoppFXHigh = FXHigh(IniFX_Data, irows + disNextoppFX + 1)
+            nnxtIdenFXHigh = FXHigh(IniFX_Data,irows + disNNextIdenFX + 1)
+            if (curFXHigh > nxtoppFXHigh) and(curFXHigh >nnxtIdenFXHigh):
+                IsFenXing = 1
+        else: #处理下一相反分型与当下分型距离小于3的情况（即无法构成笔）
+            disNextidenFX = NextidenFX(IniFX_Data,irows)
+            if(disNextidenFX != -1):
+                curFXHigh = FXHigh(IniFX_Data,irows)
+                nxtidenFXHigh = FXHigh(IniFX_Data,irows + disNextidenFX + 1)
+                if (curFXHigh > nxtidenFXHigh):#条件应再加上，与下一个同分型的下一个异分型距离大于3，且分型高低点条件。
+                    disNNextoppFXpart3 = NextoppFX(IniFX_Data, irows + disNextidenFX + 1) #下下个反向分型
+                    disNNextoppFX = disNextoppFX + disNNextoppFXpart3 + 1
+                    if (disNNextoppFX >= 3):
+                        curFXHigh = FXHigh(IniFX_Data,irows) #i当下顶分型高点
+                        nnxtoppFXHigh = FXHigh(IniFX_Data, irows + disNNextoppFX + 1) #下下底分型高点
+                        disNNextIdenFXpart3 = disNextoppFX(IniFX_Data, irows + disNNextoppFX + 1)
+                        disNNextIdenFX = disNNextoppFX + disNNextIdenFXpart3 + 1
+                        nnxtIdenFXHigh = FXHigh(IniFX_Data, irows + disNNextIdenFX + 1)
+                        if(disNNextIdenFXpart3 == -1):
+                            IsFenXing = -1
+                        if (curFXHigh > nnxtoppFXHigh) and (curFXHigh >nnxtIdenFXHigh):
+                            IsFenXing = 1
+                    elif (disNextoppFX == -1):
+                            IsFenXing = -1
+            else:
+                 IsFenXing = -1
